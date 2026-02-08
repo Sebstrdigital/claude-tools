@@ -100,3 +100,7 @@ claude-tools/
 Every file includes YAML frontmatter with:
 - `source_id: seb-claude-tools` — identifies files from this repo
 - `version: 1.0.0` — tracks versions for safe updates
+
+## License
+
+[MIT](LICENSE)
