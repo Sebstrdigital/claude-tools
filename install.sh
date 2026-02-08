@@ -56,11 +56,11 @@ check_and_install() {
 
         if [ "$src_version" = "$target_version" ]; then
             echo -e "  ${GRAY}current${NC}  $filename ${GRAY}(v$target_version)${NC}"
-            ((skipped++))
+            skipped=$((skipped + 1))
         else
             cp "$src" "$target"
             echo -e "  ${BLUE}updated${NC}  $filename ${GRAY}v$target_version → v$src_version${NC}"
-            ((updated++))
+            updated=$((updated + 1))
         fi
     elif [ -f "$prefixed_target" ] && grep -q "source_id: $SOURCE_ID" "$prefixed_target" 2>/dev/null; then
         # Prefixed version exists with our source_id — update the prefixed file
@@ -69,22 +69,22 @@ check_and_install() {
 
         if [ "$src_version" = "$target_version" ]; then
             echo -e "  ${GRAY}current${NC}  $prefixed_name ${GRAY}(v$target_version)${NC}"
-            ((skipped++))
+            skipped=$((skipped + 1))
         else
             cp "$src" "$prefixed_target"
             echo -e "  ${BLUE}updated${NC}  $prefixed_name ${GRAY}v$target_version → v$src_version${NC}"
-            ((updated++))
+            updated=$((updated + 1))
         fi
     elif [ -f "$target" ]; then
         # Original exists but belongs to someone else — install with prefix
         cp "$src" "$prefixed_target"
         echo -e "  ${YELLOW}prefixed${NC} $filename → $prefixed_name ${GRAY}(existing file preserved)${NC}"
-        ((prefixed++))
+        prefixed=$((prefixed + 1))
     else
         # No conflict — install directly
         cp "$src" "$target"
         echo -e "  ${GREEN}added${NC}    $filename ${GRAY}(v$src_version)${NC}"
-        ((installed++))
+        installed=$((installed + 1))
     fi
 }
 
