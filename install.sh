@@ -46,29 +46,40 @@ check_and_install() {
     local src_version
     src_version="$(get_version "$src")"
 
-    if [ -f "$target" ]; then
-        # File exists — check for source_id
-        if grep -q "source_id: $SOURCE_ID" "$target" 2>/dev/null; then
-            # Same source_id — safe to overwrite (update)
-            local target_version
-            target_version="$(get_version "$target")"
+    local prefixed_name="${PREFIX}${filename}"
+    local prefixed_target="$target_dir/$prefixed_name"
 
-            if [ "$src_version" = "$target_version" ]; then
-                echo -e "  ${GRAY}current${NC}  $filename ${GRAY}(v$target_version)${NC}"
-                ((skipped++))
-            else
-                cp "$src" "$target"
-                echo -e "  ${BLUE}updated${NC}  $filename ${GRAY}v$target_version → v$src_version${NC}"
-                ((updated++))
-            fi
+    if [ -f "$target" ] && grep -q "source_id: $SOURCE_ID" "$target" 2>/dev/null; then
+        # Original filename exists with our source_id — update in place
+        local target_version
+        target_version="$(get_version "$target")"
+
+        if [ "$src_version" = "$target_version" ]; then
+            echo -e "  ${GRAY}current${NC}  $filename ${GRAY}(v$target_version)${NC}"
+            ((skipped++))
         else
-            # Different or missing source_id — prefix to avoid conflict
-            local prefixed_name="${PREFIX}${filename}"
-            local prefixed_target="$target_dir/$prefixed_name"
-            cp "$src" "$prefixed_target"
-            echo -e "  ${YELLOW}prefixed${NC} $filename → $prefixed_name ${GRAY}(existing file preserved)${NC}"
-            ((prefixed++))
+            cp "$src" "$target"
+            echo -e "  ${BLUE}updated${NC}  $filename ${GRAY}v$target_version → v$src_version${NC}"
+            ((updated++))
         fi
+    elif [ -f "$prefixed_target" ] && grep -q "source_id: $SOURCE_ID" "$prefixed_target" 2>/dev/null; then
+        # Prefixed version exists with our source_id — update the prefixed file
+        local target_version
+        target_version="$(get_version "$prefixed_target")"
+
+        if [ "$src_version" = "$target_version" ]; then
+            echo -e "  ${GRAY}current${NC}  $prefixed_name ${GRAY}(v$target_version)${NC}"
+            ((skipped++))
+        else
+            cp "$src" "$prefixed_target"
+            echo -e "  ${BLUE}updated${NC}  $prefixed_name ${GRAY}v$target_version → v$src_version${NC}"
+            ((updated++))
+        fi
+    elif [ -f "$target" ]; then
+        # Original exists but belongs to someone else — install with prefix
+        cp "$src" "$prefixed_target"
+        echo -e "  ${YELLOW}prefixed${NC} $filename → $prefixed_name ${GRAY}(existing file preserved)${NC}"
+        ((prefixed++))
     else
         # No conflict — install directly
         cp "$src" "$target"
