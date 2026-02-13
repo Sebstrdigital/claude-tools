@@ -24,6 +24,12 @@ Custom agents, commands, and reference docs for [Claude Code](https://claude.ai/
 | `/refine` | Iterate on generated POCs until the design is approved |
 | `/prd` | Convert approved UI POCs into implementation-ready Product Requirements Documents |
 
+**Debugging**
+
+| Command | Description |
+|---------|-------------|
+| `/debug` | Debug session tracker — maintains a breadcrumb trail file so you can close sessions and resume without losing context |
+
 **Agentic Design Patterns Toolkit**
 
 | Command | Description |
@@ -85,7 +91,8 @@ claude-tools/
 │   ├── prd.md
 │   ├── patterns.md
 │   ├── agent-review.md
-│   └── agent-audit.md
+│   ├── agent-audit.md
+│   └── debug.md
 ├── docs/                           → ~/.claude/docs/
 │   └── agentic-patterns/
 │       ├── patterns-master-summary.md
