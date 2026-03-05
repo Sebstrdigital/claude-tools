@@ -24,6 +24,15 @@ Custom agents, commands, and reference docs for [Claude Code](https://claude.ai/
 | `/refine` | Iterate on generated POCs until the design is approved |
 | `/prd` | Convert approved UI POCs into implementation-ready Product Requirements Documents |
 
+**UX Copy Toolkit** (workflow: `/product-context` → `/ux-audit` and/or `/brand-voice` → `/ux-copy`)
+
+| Command | Description |
+|---------|-------------|
+| `/product-context` | Guided interview that captures product identity, value proposition, aha moment, and user journey |
+| `/ux-audit` | Scans codebase for user-facing touchpoints, applies 7 UX frameworks (Fogg, JTBD, progressive disclosure, etc.), produces audit report with optional interactive visualization |
+| `/brand-voice` | Guided interview that produces voice traits, tone map, customer language inventory, and competitive positioning |
+| `/ux-copy` | Writes production-ready UX copy for every user-facing surface using microcopy frameworks (Three Cs, Grice's maxims, PAS, Yifrah) |
+
 **Debugging**
 
 | Command | Description |
@@ -92,7 +101,11 @@ claude-tools/
 │   ├── patterns.md
 │   ├── agent-review.md
 │   ├── agent-audit.md
-│   └── debug.md
+│   ├── debug.md
+│   ├── product-context.md
+│   ├── ux-audit.md
+│   ├── brand-voice.md
+│   └── ux-copy.md
 ├── docs/                           → ~/.claude/docs/
 │   └── agentic-patterns/
 │       ├── patterns-master-summary.md
