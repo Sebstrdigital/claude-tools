@@ -47,6 +47,16 @@ Custom agents, commands, and reference docs for [Claude Code](https://claude.ai/
 | `/agent-review` | Deep architecture review — scores patterns, scans anti-patterns, produces recommendations |
 | `/agent-audit` | Quick 23-point pass/fail pre-deployment audit |
 
+**Project Audit Suite** (workflow: `/project-audit` orchestrates all of the below in parallel)
+
+| Command | Description |
+|---------|-------------|
+| `/project-audit` | Full audit orchestrator — detects agent pipeline, runs all applicable audits in parallel, produces `docs/audits/` with overview and optional interactive playground |
+| `/security-audit` | 35-check security audit across 7 domains: auth, input validation, LLM-specific attacks, data access, API security, secrets, and infrastructure |
+| `/data-integrity-audit` | 30-check audit of AI-generated query results — traces the full chain from user question to displayed answer and flags where correctness can break |
+| `/infra-audit` | Interview-based infrastructure assessment — matches current setup against your scale targets, produces gap analysis and migration roadmap |
+| `/code-review` | 25-check general code quality review across 5 domains: structure, naming, complexity, error handling, and type safety/testing |
+
 ### Reference Docs
 
 | Doc | Used By |
@@ -101,6 +111,11 @@ claude-tools/
 │   ├── patterns.md
 │   ├── agent-review.md
 │   ├── agent-audit.md
+│   ├── project-audit.md
+│   ├── security-audit.md
+│   ├── data-integrity-audit.md
+│   ├── infra-audit.md
+│   ├── code-review.md
 │   ├── debug.md
 │   ├── product-context.md
 │   ├── ux-audit.md
