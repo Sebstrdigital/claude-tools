@@ -33,6 +33,12 @@ Custom agents, commands, and reference docs for [Claude Code](https://claude.ai/
 | `/brand-voice` | Guided interview that produces voice traits, tone map, customer language inventory, and competitive positioning |
 | `/ux-copy` | Writes production-ready UX copy for every user-facing surface using microcopy frameworks (Three Cs, Grice's maxims, PAS, Yifrah) |
 
+**Client Work**
+
+| Command | Description |
+|---------|-------------|
+| `/client-proposal` | Generate client-facing proposals with built-in leak review — produces deliverables then runs an interactive checklist against internal leak rules before delivery |
+
 **Debugging**
 
 | Command | Description |
@@ -116,6 +122,7 @@ claude-tools/
 │   ├── data-integrity-audit.md
 │   ├── infra-audit.md
 │   ├── code-review.md
+│   ├── client-proposal.md
 │   ├── debug.md
 │   ├── product-context.md
 │   ├── ux-audit.md
