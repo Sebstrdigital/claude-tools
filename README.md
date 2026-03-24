@@ -45,6 +45,17 @@ Custom agents, commands, and reference docs for [Claude Code](https://claude.ai/
 |---------|-------------|
 | `/debug` | Debug session tracker — maintains a breadcrumb trail file so you can close sessions and resume without losing context |
 
+**Harness Design Toolkit** (workflow: `/harness-interview` → `/harness-architect` → `/harness-spec` → `/harness-build` or takt)
+
+| Command | Description |
+|---------|-------------|
+| `/harness-interview` | Guided interview capturing domain, systems, platform, autonomy, scale, and harness-type signals for designing an agentic harness |
+| `/harness-architect` | Selects harness type (General Purpose, Specialized, Autonomous, Hierarchical, Multi-Agent, DAG), designs agent decomposition, orchestration, and tool map |
+| `/harness-spec` | Generates implementation-ready specification — the fork point for `/harness-build` or `/feature` → `/sprint` → takt |
+| `/harness-build` | Generates runnable scaffolding adapted to harness type × platform (Claude Code skills, LangGraph, CrewAI, custom) |
+| `/harness-review` | Deep 28-point + type-specific review of harness implementations against the 6 harness patterns and anti-patterns |
+| `/skill-review` | 22-point review of Claude Code skill files for format, interaction design, chain integration, and effectiveness |
+
 **Agentic Design Patterns Toolkit**
 
 | Command | Description |
@@ -67,9 +78,12 @@ Custom agents, commands, and reference docs for [Claude Code](https://claude.ai/
 
 | Doc | Used By |
 |-----|---------|
-| `patterns-master-summary.md` | `/patterns`, `/agent-review`, `/agent-audit` |
-| `patterns-selection-guide.md` | `/patterns`, `/agent-review` |
-| `patterns-anti-patterns.md` | `/patterns`, `/agent-review`, `/agent-audit` |
+| `patterns-master-summary.md` | `/patterns`, `/agent-review`, `/agent-audit`, `/harness-architect` |
+| `patterns-selection-guide.md` | `/patterns`, `/agent-review`, `/harness-architect` |
+| `patterns-anti-patterns.md` | `/patterns`, `/agent-review`, `/agent-audit`, `/harness-architect` |
+| `harness-types.md` | `/harness-architect`, `/harness-review` |
+| `harness-selection-guide.md` | `/harness-architect`, `/harness-review` |
+| `skill-authoring-guide.md` | `/harness-build`, `/skill-review` |
 
 ## Installation
 
@@ -127,12 +141,22 @@ claude-tools/
 │   ├── product-context.md
 │   ├── ux-audit.md
 │   ├── brand-voice.md
-│   └── ux-copy.md
+│   ├── ux-copy.md
+│   ├── harness-interview.md
+│   ├── harness-architect.md
+│   ├── harness-spec.md
+│   ├── harness-build.md
+│   ├── harness-review.md
+│   └── skill-review.md
 ├── docs/                           → ~/.claude/docs/
-│   └── agentic-patterns/
-│       ├── patterns-master-summary.md
-│       ├── patterns-selection-guide.md
-│       └── patterns-anti-patterns.md
+│   ├── agentic-patterns/
+│   │   ├── patterns-master-summary.md
+│   │   ├── patterns-selection-guide.md
+│   │   └── patterns-anti-patterns.md
+│   ├── harness-patterns/
+│   │   ├── harness-types.md
+│   │   └── harness-selection-guide.md
+│   └── skill-authoring-guide.md
 ├── install.sh
 └── README.md
 ```
