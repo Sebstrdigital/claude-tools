@@ -109,12 +109,25 @@ for f in "$SCRIPT_DIR"/commands/*.md; do
 done
 echo ""
 
-# Install docs
-echo "Docs → $CLAUDE_DIR/docs/agentic-patterns/"
-for f in "$SCRIPT_DIR"/docs/agentic-patterns/*.md; do
-    [ -f "$f" ] && check_and_install "$f" "$CLAUDE_DIR/docs/agentic-patterns"
+# Install docs (all subdirectories)
+for subdir in "$SCRIPT_DIR"/docs/*/; do
+    [ -d "$subdir" ] || continue
+    dirname="$(basename "$subdir")"
+    echo "Docs → $CLAUDE_DIR/docs/$dirname/"
+    for f in "$subdir"*.md; do
+        [ -f "$f" ] && check_and_install "$f" "$CLAUDE_DIR/docs/$dirname"
+    done
+    echo ""
 done
-echo ""
+
+# Install top-level docs
+for f in "$SCRIPT_DIR"/docs/*.md; do
+    if [ -f "$f" ]; then
+        echo "Docs → $CLAUDE_DIR/docs/"
+        check_and_install "$f" "$CLAUDE_DIR/docs"
+        echo ""
+    fi
+done
 
 # Summary
 echo "────────────────────────────────────────"
